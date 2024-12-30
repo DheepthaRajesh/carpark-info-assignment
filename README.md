@@ -1,53 +1,47 @@
-# Carpark-Info
-A take-home coding assignment for backend developer interview. 
+# Carpark-Info Assignment
 
-## Your Task
-1. Given the CSV dataset (hdb-carpark-information-<timestamp>.csv) that contains details of a list of carparks, design the database to store the given information in the dataset and to support the below given user stories. ER diagram should be provided.
-2. Write a batch job that will process and store the information into the database of your choice. This is a daily delta file that will be interfaced over from source. In the event there is an error processing the records in the file, the entire file should rollback.
-3. Write the APIs that will fulfill the below given user stories. Swagger documentation should be provided. No front-end screens are required to be developed - just the APIs. However, you should be prepared to articulate how the APIs are envisoned to be utilised by the front-end developer. :)
+This project implements a carpark management system using **.NET 6.0, SQLite with Entity Framework Core**, and follows best coding practices to create a robust, maintainable, and extensible solution. It processes daily delta CSV files, stores the data in a normalized database schema, and provides APIs to fulfill user stories such as filtering carparks and managing user favorites.
 
-### User Stories
-* As a user, I want to be able to filter the list of carpark by the following criteria:
-  - Carpark that offer free parking
-  - Carpark that offer night parking
-  - Carpark that can meet my vehicle height requirement.
-* As a user, I want to be able to add a specific carpark as my favourite.
+## Key Features
+* **Batch Job**: Processes a daily delta CSV file using CsvReader. The job performs bulk inserts/updates with rollback in case of errors.
+* **Normalized Database Design**: Applies 1NF, 2NF, and 3NF to ensure flexibility, scalability, and referential integrity.
+* **User Stories**: Implements APIs to:
+        Filter carparks by criteria (free parking, night parking, height requirements).
+        Add favorite carparks for users.
+* **Extensible Architecture**: Supports changes such as switching the data access technology or interface file format (e.g., CSV to JSON) using the repository pattern and unit of work. 
+* **Swagger Documentation**: Detailed API documentation to assist frontend developers.
+* **Secure Coding Practices**: Implements validation, error handling, and safeguards against common vulnerabilities.
+* **Unit Testing**: Code is designed for testability using the repository pattern and unit of work.
+* **Performance and Query Optimization**: Handles large datasets using bulk operations and normalization reduces data dependency and redudancy. 
 
-## Getting Started
-Please review the information in this section before you get started with your development. 
+## Assignment Requirements & Solutions
 
-* Create a personal fork of the project on Github.
-* Clone the fork on your local machine.
-* Implement your solution and the rest of git basics applies.
-* When you are ready, submit the forked repo for review by providing the link to the repo to our recruitment team.
+### 1. Database Schema & Normalization
 
-### Tech Stack
-You may choose to develop the application using either of the following stack:
-* Spring Boot / Spring Batch with H2 database and ORM of your choice
-* .NET Core 6.x with SQLite database and ORM of your choice
-* Node.js with an in-memory database of your choice
+The schema includes three tables:
 
-Note: You are encouraged to try out .NET Core as Microsoft technologies are primarily used within the firm.
+* **Carpark Table** : Stores carpark details with **car_park_no** as the primary key. The information processed from the csv file is fed into the CarPark table. 
+* **Users Table** : Stores user information with **user_id** as the primary key. Manually populated for testing purposes. 
+* **Favourites Table** : A junction table (representing the many to many relationship between Users and CarParks) with composite keys **(user_id, car_park_no)** to link users with multiple favorite carparks. This assumes that multiple users can favourite the same carpark.
 
-### Tools
-You are free to choose the IDE (Integrated Development Environment) tool you are most comfortable with.
 
-## Basic Expectation
-* Ability to design data schema, apply normalisation technique and enhance query performances, if applicable.
-* Write readable, maintainable, performant and well-documented codes.
-* Code design / architecture should support implementation of unit testing.
-* Code design / architecture should be flexible to changes / open to extensions, e.g. changing of data access technology, changing of interface file format from csv to JSON etc.
-* Write clear and concise commit message.
+Advantages of having a seperate junction table to store the favourites instead of a favourites column in the Users or CarPark table:
 
-## Challenge Yourself
-Additional consideration to fine-tune your solution. It's not a must to implement in this assignment but please be prepared to discuss:
-* The dataset has the potential to be large in size.
-* Minimal human intervention for job recovery.
-* Secure coding practices
-* API authentication and authorisation
+* **Flexibility**: Users can select multiple favorite carparks.
+* **Scalability**: Avoids adding multiple columns for favorites, which would limit options.
+* **Referential Integrity**: Ensures valid relationships between users and carparks.
 
-## Time Estimates
-This assignment should take about 2 to 4 hours of your time depending on your level of experiences. 
 
-## Need Help
-Create a github issue. We'll get back to you.
+This data schema adheres to **1NF, 2NF, and 3NF normalization techniques**, ensuring atomic data entries, eliminating partial dependencies, and avoiding transitive dependencies. This design improves performance by reducing redundancy, enhancing scalability, and maintaining data integrity with a well-structured and efficient schema.
+
+#### ER diagram
+
+### 2. Batch job design
+
+* **File Processing**: ProcessCsvService.cs in the Services folder parses the daily delta CSV file using the **CsvHelper** library and processes the records into the CarPark table. 
+* **Delta Logic**: Checks for existing records to update; otherwise, inserts new ones using the **BulkInsertOrUpdate function of EFCore.BulkExtensions**. 
+* **Error Handling**: Implements rollback for the entire file in case of errors by treating it as a single transaction. 
+* **Performance**: Uses bulk insert/update operations for efficiency.
+
+
+
