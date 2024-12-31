@@ -51,6 +51,8 @@ This data schema adheres to **1NF, 2NF, and 3NF normalization techniques**, ensu
 
 #### ER diagram
 
+![ER Diagram](./ER diagram.png)
+
 ### 2. Batch job design
 
 * **File Processing**: ProcessCsvService.cs in the Services folder parses the daily delta CSV file using the **CsvHelper** library and processes the records into the CarPark table. 
