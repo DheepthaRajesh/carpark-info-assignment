@@ -10,9 +10,24 @@ This project implements a carpark management system using **.NET 6.0, SQLite wit
         Add favorite carparks for users.
 * **Extensible Architecture**: Supports changes such as switching the data access technology or interface file format (e.g., CSV to JSON) using the repository pattern and unit of work. 
 * **Swagger Documentation**: Detailed API documentation to assist frontend developers.
-* **Secure Coding Practices**: Implements validation, error handling, and safeguards against common vulnerabilities.
+* **Secure Coding Practices**: Implements validation and error handling
 * **Unit Testing**: Code is designed for testability using the repository pattern and unit of work.
-* **Performance and Query Optimization**: Handles large datasets using bulk operations and normalization reduces data dependency and redudancy. 
+* **Performance and Query Optimization**: Handles large datasets using bulk operations and normalization reduces data dependency and redudancy.
+
+## Getting Started
+
+**Prerequisites:**
+
+Ensure .NET 6.0 SDK is installed on the system
+
+**Steps to run the application:**
+
+* Clone this repository and navigate to the **CarPark-Info** folder.
+* Run **dotnet restore** to restore dependencies. 
+* Run **dotnet ef database update** to create the database. 
+* Run **dotnet run** to run the application.
+* Access Swagger for API documentation at: **https://localhost:7071/swagger** 
+
 
 ## Assignment Requirements & Solutions
 
