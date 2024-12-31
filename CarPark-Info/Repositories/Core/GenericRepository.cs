@@ -34,7 +34,12 @@ namespace CarPark_Info.Repositories.Core
 
         public async Task<T> GetAsync(string id)
         {
-            return await _dbSet.FindAsync(id); // Get the item by its primary key 
+            var item = await _dbSet.FindAsync(id); // Get the item by its primary key 
+            if (item == null)
+            {
+                throw new KeyNotFoundException($"Record with id {id} not found.");
+            }
+            return item;
         }
 
 

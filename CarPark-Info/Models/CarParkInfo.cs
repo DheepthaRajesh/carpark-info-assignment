@@ -18,18 +18,18 @@ specific carpark as a favourite.
 */
 public class CarPark
 {
-    public string car_park_no { get; set; }
-    public string address { get; set; }
-    public double x_coord { get; set; }
-    public double y_coord { get; set; }
-    public string car_park_type { get; set; }
-    public string type_of_parking_system { get; set; }
-    public string short_term_parking { get; set; }
-    public string free_parking { get; set; }
-    public string night_parking { get; set; }
-    public int car_park_decks { get; set; }
-    public double gantry_height { get; set; }
-    public string car_park_basement { get; set; }
+    public string car_park_no { get; set; } = string.Empty;
+    public string address { get; set; }  = string.Empty;
+    public double x_coord { get; set; }  
+    public double y_coord { get; set; } 
+    public string car_park_type { get; set; }  = string.Empty;
+    public string type_of_parking_system { get; set; }  = string.Empty;
+    public string short_term_parking { get; set; }  = string.Empty;
+    public string free_parking { get; set; }  = string.Empty;
+    public string night_parking { get; set; }  = string.Empty;
+    public int car_park_decks { get; set; } 
+    public double gantry_height { get; set; }  
+    public string car_park_basement { get; set; }  = string.Empty;
 
     public List<User> Users { get; } = new();
     public List<Favourite> Favourites { get; } = new();
@@ -39,9 +39,9 @@ public class CarPark
 
     public class User
 {
-    public string UserId { get; set; }
-    public string username { get; set; }
-    public string email { get; set; }
+    public string UserId { get; set; }  = string.Empty;
+    public string username { get; set; }  = string.Empty;
+    public string email { get; set; }  = string.Empty;
 
     public List<CarPark> CarParks { get; } = new();
     public List<Favourite> Favourites { get; } = new();
@@ -50,12 +50,12 @@ public class CarPark
 
     public class Favourite
 {
-    public string UserId { get; set; }
-    public string car_park_no { get; set; }
+    public string UserId { get; set; }  = string.Empty;
+    public string car_park_no { get; set; }  = string.Empty;
 
-    public User User { get; set; } = null!;
+    public User User { get; set; } = new();
 
-    public CarPark CarPark { get; set; } = null!;
+    public CarPark CarPark { get; set; } = new();
 
 }
 
