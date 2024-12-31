@@ -51,7 +51,7 @@ This data schema adheres to **1NF, 2NF, and 3NF normalization techniques**, ensu
 
 #### ER diagram
 
-![ER Diagram](./ER diagram.png)
+![ER Diagram](./ER_diagram.png)
 
 ### 2. Batch job design
 
