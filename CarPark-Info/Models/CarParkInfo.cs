@@ -53,9 +53,9 @@ public class CarPark
     public string UserId { get; set; }  = string.Empty;
     public string car_park_no { get; set; }  = string.Empty;
 
-    public User User { get; set; } = new();
+    public User User { get; set; } = null!;
 
-    public CarPark CarPark { get; set; } = new();
+    public CarPark CarPark { get; set; } = null!;
 
 }
 
